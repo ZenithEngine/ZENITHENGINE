@@ -319,7 +319,6 @@ $Project "Server (HL2MP)"
 				$File	"$SRCDIR\game\shared\hl1\hl1mp_weapon_rpg.cpp"
 				$File	"$SRCDIR\game\shared\hl1\hl1mp_weapon_sachel.cpp"
 				$File	"$SRCDIR\game\shared\hl1\hl1mp_weapon_shotgun.cpp"
-				$File	"$SRCDIR\game\server\hl1\hl1_weapon_crowbar.cpp"
 			}
 		}
 	}
