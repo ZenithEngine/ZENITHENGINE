@@ -1,7 +1,7 @@
 "GameInfo"
 {
-	game	"ALIENGINE"
-	title	"ALIENGINE"
+	game	"Zenith"
+	title	"Zenith"
 	title2	""
 	type multiplayer_only
 	nomodels 0
