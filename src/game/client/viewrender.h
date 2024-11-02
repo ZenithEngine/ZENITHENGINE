@@ -1,6 +1,6 @@
 //========= Copyright Valve Corporation, All rights reserved. ============//
 //
-// Purpose: 
+// Purpose:
 //
 //===========================================================================//
 
@@ -28,7 +28,6 @@ class C_EnvProjectedTexture;
 class IScreenSpaceEffect;
 class CClientViewSetup;
 class CViewRender;
-struct ClientWorldListInfo_t;
 class C_BaseEntity;
 struct WriteReplayScreenshotParams_t;
 class CReplayScreenshotTaker;
@@ -78,6 +77,10 @@ enum view_id_t
 	VIEW_INTRO_CAMERA = 6,
 	VIEW_SHADOW_DEPTH_TEXTURE = 7,
 	VIEW_SSAO = 8,
+
+	VIEW_DEFERRED_GBUFFER = 9,
+	VIEW_DEFERRED_SHADOW = 10,
+
 	VIEW_ID_COUNT
 };
 view_id_t CurrentViewID();
@@ -97,14 +100,14 @@ public:
 
 
 //-----------------------------------------------------------------------------
-// 
+//
 //-----------------------------------------------------------------------------
 struct ViewCustomVisibility_t
 {
 	ViewCustomVisibility_t()
 	{
 		m_nNumVisOrigins = 0;
-		m_VisData.m_fDistToAreaPortalTolerance = FLT_MAX; 
+		m_VisData.m_fDistToAreaPortalTolerance = FLT_MAX;
 		m_iForceViewLeaf = -1;
 	}
 
@@ -146,7 +149,7 @@ struct ViewCustomVisibility_t
 };
 
 //-----------------------------------------------------------------------------
-// 
+//
 //-----------------------------------------------------------------------------
 struct WaterRenderInfo_t
 {
@@ -160,7 +163,7 @@ struct WaterRenderInfo_t
 };
 
 //-----------------------------------------------------------------------------
-// 
+//
 //-----------------------------------------------------------------------------
 class CBase3dView : public CRefCounted<>,
 					protected CViewSetup
@@ -180,6 +183,34 @@ protected:
 	// @MULTICORE (toml 8/11/2006): need to have per-view frustum. Change when move view stack to client
 	VPlane			*m_Frustum;
 	CViewRender *m_pMainView;
+};
+
+//-----------------------------------------------------------------------------
+// Describes a pruned set of leaves to be rendered this view. Reference counted
+// because potentially shared by a number of views
+//-----------------------------------------------------------------------------
+struct ClientWorldListInfo_t : public CRefCounted1<WorldListInfo_t>
+{
+	ClientWorldListInfo_t()
+	{
+		memset( (WorldListInfo_t *)this, 0, sizeof(WorldListInfo_t) );
+		m_pActualLeafIndex = NULL;
+		m_bPooledAlloc = false;
+	}
+
+	// Allocate a list intended for pruning
+	static ClientWorldListInfo_t *AllocPooled( const ClientWorldListInfo_t &exemplar );
+
+	// Because we remap leaves to eliminate unused leaves, we need a remap
+	// when drawing translucent surfaces, which requires the *original* leaf index
+	// using m_pActualLeafMap[ remapped leaf index ] == actual leaf index
+	LeafIndex_t *m_pActualLeafIndex;
+
+private:
+	virtual bool OnFinalRelease();
+
+	bool m_bPooledAlloc;
+	static CObjectPool<ClientWorldListInfo_t> gm_Pool;
 };
 
 //-----------------------------------------------------------------------------
@@ -261,7 +292,7 @@ protected:
 
 
 //-----------------------------------------------------------------------------
-// 
+//
 //-----------------------------------------------------------------------------
 
 class CRenderExecutor
@@ -277,7 +308,7 @@ protected:
 };
 
 //-----------------------------------------------------------------------------
-// 
+//
 //-----------------------------------------------------------------------------
 
 class CSimpleRenderExecutor : public CRenderExecutor
@@ -378,7 +409,7 @@ public:
 	bool			ShouldDrawBrushModels( void );
 
 	const CViewSetup *GetViewSetup( ) const;
-	
+
 	void			DisableVis( void );
 
 	// Sets up the view model position relative to the local player
@@ -423,7 +454,7 @@ public:
 	{
 		m_UnderWaterOverlayMaterial.Init( pMaterial );
 	}
-private:
+protected:
 	int				m_BuildWorldListsNumber;
 
 
@@ -433,7 +464,7 @@ private:
 
 	void			DrawMonitors( const CViewSetup &cameraView );
 
-	bool			DrawOneMonitor( ITexture *pRenderTarget, int cameraNum, C_PointCamera *pCameraEnt, const CViewSetup &cameraView, C_BasePlayer *localPlayer, 
+	bool			DrawOneMonitor( ITexture *pRenderTarget, int cameraNum, C_PointCamera *pCameraEnt, const CViewSetup &cameraView, C_BasePlayer *localPlayer,
 						int x, int y, int width, int height );
 
 	// Drawing primitives
@@ -454,7 +485,7 @@ private:
 
 	virtual void			ViewDrawScene_Intro( const CViewSetup &view, int nClearFlags, const IntroData_t &introData );
 
-#ifdef PORTAL 
+#ifdef PORTAL
 	// Intended for use in the middle of another ViewDrawScene call, this allows stencils to be drawn after opaques but before translucents are drawn in the main view.
 	void			ViewDrawScene_PortalStencil( const CViewSetup &view, ViewCustomVisibility_t *pCustomVisibility );
 	void			Draw3dSkyboxworld_Portal( const CViewSetup &view, int &nClearFlags, bool &bDrew3dSkybox, SkyboxVisibility_t &nSkyboxVisible, ITexture *pRenderTarget = NULL );
@@ -476,7 +507,7 @@ private:
 
 	// VIS Overrides
 	// Set to true to turn off client side vis ( !!!! rendering will be slow since everything will draw )
-	bool			m_bForceNoVis;	
+	bool			m_bForceNoVis;
 
 	// Some cvars needed by this system
 	const ConVar	*m_pDrawEntities;

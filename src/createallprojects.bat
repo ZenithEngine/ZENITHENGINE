@@ -1,2 +1,2 @@
-devtools\bin\vpc.exe /hl2mp +everything /mksln everything.sln
+devtools\bin\vpc.exe /hl2mp +shaders +everything /mksln everything.sln
 pause

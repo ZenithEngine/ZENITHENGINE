@@ -5,7 +5,7 @@ _Nc_VS2013/vpcgame:hl2mp_
 30577f77 ..\..\vpc_scripts\source_lib_base.vpc
 d752cf80 ..\..\vpc_scripts\platform_dirs.vpc
 6c4a5ff1 ..\..\vpc_scripts\source_base.vpc
-5dd0225a ..\..\vpc_scripts\source_lib_win32_base.vpc
+f7d79e6b ..\..\vpc_scripts\source_lib_win32_base.vpc
 486b766d ..\..\vpc_scripts\version.vpc
 fe1ec01f ..\..\vpc_scripts\source_lib_win32_debug.vpc
 e9f55286 ..\..\vpc_scripts\source_lib_win32_release.vpc

@@ -52,8 +52,6 @@ void LoadMaterialSystemInterface( CreateInterfaceFn fileSystemFactory )
 	{
 		Error( "Could not start the empty shader (shaderapiempty.dll)!" );
 	}
-
-	g_pMaterialSystem->ModInit();
 }
 
 void InitMaterialSystem( const char *materialBaseDirPath, CreateInterfaceFn fileSystemFactory )
