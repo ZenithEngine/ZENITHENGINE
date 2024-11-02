@@ -2373,8 +2373,7 @@ void CNPC_CombineGunship::UpdateRotorSoundPitch( int iPitch )
 	controller.SoundChangePitch( m_pAirExhaustSound, iPitch, 0.1 );
 
 	// FIXME: Doesn't work in multiplayer
-	// NOW IT DOES HAHAHA 
-	CBaseEntity *pPlayer = UTIL_GetNearestPlayer(GetAbsOrigin());
+	CBaseEntity *pPlayer = UTIL_PlayerByIndex(1);
 	if (pPlayer)
 	{
 		Vector pos;

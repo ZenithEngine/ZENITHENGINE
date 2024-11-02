@@ -168,19 +168,6 @@ $Project "Client (HL2MP)"
 				$File	"hl2mp\ui\hl2mptextwindow.cpp"
 				$File	"hl2mp\ui\hl2mptextwindow.h"
 				$File	"hl2mp\hud_deathnotice.cpp"
-		}
-		$Folder	"Zenith"
-		{
-			$Folder "Portal"
-			{
-				$File "$SRCDIR\game\shared\portal\weapon_portalbase.h"
-				$File "$SRCDIR\game\shared\portal\weapon_portalbase.h"
-				$File "$SRCDIR\game\shared\portal\weapon_portalbasecombatweapon.cpp"
-				$File "$SRCDIR\game\shared\portal\weapon_portalbasecombatweapon.h"
-				$File "$SRCDIR\game\shared\portal\weapon_portalgun_shared.cpp"
-				$File "$SRCDIR\game\shared\portal\weapon_portalgun_shared.h"
-				$File "$SRCDIR\game\client\portal\c_weapon_portalgun.h"
-				$File "$SRCDIR\game\client\portal\c_portal_player.h"
 			}
 		}
 	}

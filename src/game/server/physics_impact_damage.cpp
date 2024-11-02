@@ -335,13 +335,14 @@ float CalculatePhysicsImpactDamage( int index, gamevcollisionevent_t *pEvent, co
 
 	if ( pEvent->pObjects[otherIndex]->GetGameFlags() & FVPHYSICS_PLAYER_HELD )
 	{
-		// if the player is holding the object, use it's real mass (player holding reduced the mass) 
-		Vector origin;
-		pEvent->pObjects[otherIndex]->GetPosition(&origin, NULL);
-		CBasePlayer *pPlayer = UTIL_GetNearestPlayer(origin);
-		if (pPlayer)
+		if ( gpGlobals->maxClients == 1 )
 		{
-			otherMass = pPlayer->GetHeldObjectMass(pEvent->pObjects[otherIndex]); 
+			// if the player is holding the object, use it's real mass (player holding reduced the mass)
+			CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
+			if ( pPlayer )
+			{
+				otherMass = pPlayer->GetHeldObjectMass( pEvent->pObjects[otherIndex] );
+			}
 		}
 	}
 
@@ -435,18 +436,19 @@ float CalculatePhysicsImpactDamage( int index, gamevcollisionevent_t *pEvent, co
 		// prop, so recompute:
 		invMass = 1.0f / pEvent->pObjects[index]->GetMass();
 	}
-	else if (pEvent->pObjects[index]->GetGameFlags() & FVPHYSICS_PLAYER_HELD)
+	else if ( pEvent->pObjects[index]->GetGameFlags() & FVPHYSICS_PLAYER_HELD )
 	{
-		// if the player is holding the object, use it's real mass (player holding reduced the mass) 
-		Vector origin;
-		pEvent->pObjects[otherIndex]->GetPosition(&origin, NULL);
-		CBasePlayer *pPlayer = UTIL_GetNearestPlayer(origin);
-		if (pPlayer)
+		if ( gpGlobals->maxClients == 1 )
 		{
-			float mass = pPlayer->GetHeldObjectMass(pEvent->pObjects[index]);
-			if (mass > 0)
+			// if the player is holding the object, use it's real mass (player holding reduced the mass)
+			CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
+			if ( pPlayer )
 			{
-				invMass = 1.0f / mass;
+				float mass = pPlayer->GetHeldObjectMass( pEvent->pObjects[index] );
+				if ( mass > 0 )
+				{
+					invMass = 1.0f / mass;
+				}
 			}
 		}
 	}

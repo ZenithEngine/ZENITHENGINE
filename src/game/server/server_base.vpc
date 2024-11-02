@@ -17,7 +17,6 @@ $include "$SRCDIR\vpc_scripts\source_dll_base.vpc"
 $include "$SRCDIR\vpc_scripts\protobuf_builder.vpc"
 $Include "$SRCDIR\vpc_scripts\source_replay.vpc"	[$TF]
 $Include "$SRCDIR\game\protobuf_include.vpc"
-$Include "$SRCDIR\game\server\csm.vpc"
 
 $Configuration	"Debug"
 {
@@ -80,6 +79,7 @@ $Project
 	
 	$Folder	"Source Files"
 	{
+		$File	"$SRCDIR\game\shared\content_mounter.cpp"
 		$File	"$SRCDIR\game\shared\achievement_saverestore.cpp"
 		$File	"$SRCDIR\game\shared\achievement_saverestore.h"
 		$File	"$SRCDIR\game\shared\achievementmgr.cpp"

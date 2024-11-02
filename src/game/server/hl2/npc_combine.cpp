@@ -756,7 +756,7 @@ void CNPC_Combine::StartTask( const Task_t *pTask )
 	case TASK_COMBINE_SIGNAL_BEST_SOUND:
 		if( IsInSquad() && GetSquad()->NumMembers() > 1 )
 		{
-			CBasePlayer *pPlayer = UTIL_GetNearestVisiblePlayer(this); 
+			CBasePlayer *pPlayer = AI_GetSinglePlayer();
 
 			if( pPlayer && OccupyStrategySlot( SQUAD_SLOT_EXCLUSIVE_HANDSIGN ) && pPlayer->FInViewCone( this ) )
 			{

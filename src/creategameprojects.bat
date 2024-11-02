@@ -1,2 +1,1 @@
-devtools\bin\vpc.exe /hl2mp +game /mksln games.sln
-pause
+devtools\bin\vpc.exe /episodic +shaders +game /mksln games.sln

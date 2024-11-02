@@ -291,19 +291,6 @@ $Project "Server (HL2MP)"
 				$File	"$SRCDIR\game\shared\hl2mp\weapon_smg1.cpp"
 				$File	"$SRCDIR\game\shared\hl2mp\weapon_stunstick.cpp"
 			}
-			
-			$Folder	"Zenith"
-			{
-				$Folder "Portal"
-				{
-				$File "$SRCDIR\game\shared\portal\weapon_portalbase.h"
-				$File "$SRCDIR\game\shared\portal\weapon_portalbase.h"
-				$File "$SRCDIR\game\shared\portal\weapon_portalbasecombatweapon.cpp"
-				$File "$SRCDIR\game\shared\portal\weapon_portalbasecombatweapon.h"
-				$File "$SRCDIR\game\shared\portal\weapon_portalgun_shared.cpp"
-				$File "$SRCDIR\game\shared\portal\weapon_portalgun_shared.h"
-				}
-			}
 		}
 	}
 }

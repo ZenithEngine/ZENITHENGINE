@@ -1023,8 +1023,7 @@ void CBaseCombatWeapon::SetActivity( Activity act, float duration )
 { 
 	//Adrian: Oh man...
 #if !defined( CLIENT_DLL ) && (defined( HL2MP ) || defined( PORTAL ))
-	if (GetOwner()->IsPlayer())
-		SetModel( GetWorldModel() );
+	SetModel( GetWorldModel() );
 #endif
 	
 	int sequence = SelectWeightedSequence( act ); 
@@ -1035,8 +1034,7 @@ void CBaseCombatWeapon::SetActivity( Activity act, float duration )
 
 	//Adrian: Oh man again...
 #if !defined( CLIENT_DLL ) && (defined( HL2MP ) || defined( PORTAL ))
-	if (GetOwner()->IsPlayer())
-		SetModel( GetViewModel() );
+	SetModel( GetViewModel() );
 #endif
 
 	if ( sequence != ACTIVITY_NOT_AVAILABLE )

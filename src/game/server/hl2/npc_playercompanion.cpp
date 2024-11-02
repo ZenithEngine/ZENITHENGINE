@@ -348,8 +348,10 @@ void CNPC_PlayerCompanion::GatherConditions()
 {
 	BaseClass::GatherConditions();
 
-	CBasePlayer *pPlayer = UTIL_GetNearestPlayer(GetAbsOrigin()); 
+	if ( AI_IsSinglePlayer() )
 	{
+		CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
+
 		if ( Classify() == CLASS_PLAYER_ALLY_VITAL )
 		{
 			bool bInPlayerSquad = ( m_pSquad && MAKE_STRING(m_pSquad->GetName()) == GetPlayerSquadName() );
@@ -494,9 +496,9 @@ void CNPC_PlayerCompanion::GatherConditions()
 		DoCustomSpeechAI();
 	}
 
-	if (hl2_episodic.GetBool() && !GetEnemy() && HasCondition(COND_HEAR_PLAYER)) 
+	if ( AI_IsSinglePlayer() && hl2_episodic.GetBool() && !GetEnemy() && HasCondition( COND_HEAR_PLAYER ) )
 	{
-		Vector los = (pPlayer->EyePosition() - EyePosition()); 
+		Vector los = ( UTIL_GetLocalPlayer()->EyePosition() - EyePosition() );
 		los.z = 0;
 		VectorNormalize( los );
 
@@ -512,7 +514,7 @@ void CNPC_PlayerCompanion::GatherConditions()
 //-----------------------------------------------------------------------------
 void CNPC_PlayerCompanion::DoCustomSpeechAI( void )
 {
-	CBasePlayer *pPlayer = UTIL_GetNearestPlayer(GetAbsOrigin()); 
+	CBasePlayer *pPlayer = AI_GetSinglePlayer();
 	
 	// Don't allow this when we're getting in the car
 #ifdef HL2_EPISODIC
@@ -545,7 +547,7 @@ void CNPC_PlayerCompanion::DoCustomSpeechAI( void )
 //-----------------------------------------------------------------------------
 void CNPC_PlayerCompanion::PredictPlayerPush()
 {
-	CBasePlayer *pPlayer = UTIL_GetNearestPlayer(GetAbsOrigin()); 
+	CBasePlayer *pPlayer = AI_GetSinglePlayer();
 	if ( pPlayer && pPlayer->GetSmoothedVelocity().LengthSqr() >= Square(140))
 	{
 		Vector predictedPosition = pPlayer->WorldSpaceCenter() + pPlayer->GetSmoothedVelocity() * .4;
@@ -968,8 +970,9 @@ int CNPC_PlayerCompanion::TranslateSchedule( int scheduleType )
 
 			if( CanReload() && pWeapon->UsesClipsForAmmo1() && pWeapon->Clip1() < ( pWeapon->GetMaxClip1() * .5 ) && OccupyStrategySlot( SQUAD_SLOT_EXCLUSIVE_RELOAD ) )
 			{
+				if ( AI_IsSinglePlayer() )
 				{
-					CBasePlayer *pPlayer = UTIL_GetNearestPlayer(GetAbsOrigin()); 
+					CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
 					pWeapon = pPlayer->GetActiveWeapon();
 					if( pWeapon && pWeapon->UsesClipsForAmmo1() && 
 						pWeapon->Clip1() < ( pWeapon->GetMaxClip1() * .75 ) &&
@@ -1150,8 +1153,9 @@ void CNPC_PlayerCompanion::RunTask( const Task_t *pTask )
 
 		case TASK_PC_GET_PATH_OFF_COMPANION:
 			{
+				if ( AI_IsSinglePlayer() )
 				{
-					GetNavigator()->SetAllowBigStep(UTIL_GetNearestPlayer(GetAbsOrigin()));
+					GetNavigator()->SetAllowBigStep( UTIL_GetLocalPlayer() );
 				}
 				ChainRunTask( TASK_MOVE_AWAY_PATH, 48 );
 			}
@@ -1509,7 +1513,7 @@ void CNPC_PlayerCompanion::Touch( CBaseEntity *pOther )
 		if ( m_afMemory & bits_MEMORY_PROVOKED )
 			return;
 			
-		TestPlayerPushing((pOther->IsPlayer()) ? pOther : UTIL_GetNearestPlayer(GetAbsOrigin())); 
+		TestPlayerPushing( ( pOther->IsPlayer() ) ? pOther : AI_GetSinglePlayer() );
 	}
 }
 
@@ -1737,7 +1741,7 @@ void CNPC_PlayerCompanion::UpdateReadiness()
 		}
 	}
 
-	if (ai_debug_readiness.GetBool()) 
+ 	if( ai_debug_readiness.GetBool() && AI_IsSinglePlayer() )
 	{
 		// Draw the readiness-o-meter
 		Vector vecSpot;
@@ -1746,7 +1750,7 @@ void CNPC_PlayerCompanion::UpdateReadiness()
 		const float GRADLENGTH	= 4.0f;
 
 		Vector right;
-		UTIL_GetNearestPlayer(GetAbsOrigin())->GetVectors(NULL, &right, NULL); 
+		UTIL_PlayerByIndex( 1 )->GetVectors( NULL, &right, NULL );
 
 		if ( IsInScriptedReadinessState() )
  		{
@@ -1893,7 +1897,7 @@ bool CNPC_PlayerCompanion::PickTacticalLookTarget( AILookTargetArgs_t *pArgs )
 		// 1/3rd chance to authoritatively look at player
 		if( random->RandomInt( 0, 2 ) == 0 )
 		{
-			pArgs->hTarget = UTIL_GetNearestVisiblePlayer(this); 
+			pArgs->hTarget = AI_GetSinglePlayer();
 			return true;
 		}
 	}
@@ -2780,7 +2784,7 @@ void CNPC_PlayerCompanion::OnFriendDamaged( CBaseCombatCharacter *pSquadmate, CB
 			}
 		}
 
-		CBasePlayer *pPlayer = UTIL_GetNearestPlayer(GetAbsOrigin()); 
+		CBasePlayer *pPlayer = AI_GetSinglePlayer();
 		if ( pPlayer && IsInPlayerSquad() && ( pPlayer->GetAbsOrigin().AsVector2D() - GetAbsOrigin().AsVector2D() ).LengthSqr() < Square( 25*12 ) && IsAllowedToSpeak( TLK_WATCHOUT ) )
 		{
 			if ( !pPlayer->FInViewCone( pAttacker ) )
@@ -3013,8 +3017,9 @@ float CNPC_PlayerCompanion::GetIdealSpeed() const
 float CNPC_PlayerCompanion::GetIdealAccel() const
 {
 	float multiplier = 1.0;
+	if ( AI_IsSinglePlayer() )
 	{
-		if (m_bMovingAwayFromPlayer && (UTIL_GetNearestPlayer(GetAbsOrigin())->GetAbsOrigin() - GetAbsOrigin()).Length2DSqr() < Square(3.0*12.0)) 
+		if ( m_bMovingAwayFromPlayer && (UTIL_PlayerByIndex(1)->GetAbsOrigin() - GetAbsOrigin()).Length2DSqr() < Square(3.0*12.0) )
 			multiplier = 2.0;
 	}
 	return BaseClass::GetIdealAccel() * multiplier;
@@ -3079,6 +3084,9 @@ bool CNPC_PlayerCompanion::ShouldAlwaysTransition( void )
 //-----------------------------------------------------------------------------
 void CNPC_PlayerCompanion::InputOutsideTransition( inputdata_t &inputdata )
 {
+	if ( !AI_IsSinglePlayer() )
+		return;
+
 	// Must want to do this
 	if ( ShouldAlwaysTransition() == false )
 		return;
@@ -3087,7 +3095,7 @@ void CNPC_PlayerCompanion::InputOutsideTransition( inputdata_t &inputdata )
 	if ( IsInAVehicle() )
 		return;
 
-	CBaseEntity *pPlayer = UTIL_GetNearestPlayer(GetAbsOrigin());
+	CBaseEntity *pPlayer = UTIL_GetLocalPlayer();
 	const Vector &playerPos = pPlayer->GetAbsOrigin();
 
 	// Mark us as already having succeeded if we're vital or always meant to come with the player
@@ -3670,21 +3678,15 @@ bool CNPC_PlayerCompanion::IsNavigationUrgent( void )
 				return false;
 		}
 
-		// If we're within any player's viewcone, then don't teleport. 
+		// If we're within the player's viewcone, then don't teleport.
 
 		// This test was made more general because previous iterations had cases where characters
 		// could not see the player but the player could in fact see them.  Now the NPC's facing is
 		// irrelevant and the player's viewcone is more authorative. -- jdw
-		for (int i = 1; i <= gpGlobals->maxClients; i++)
-		{
 
-			CBasePlayer *pPlayer = UTIL_PlayerByIndex(i);
-			if (!pPlayer)
-				continue;
-
-			if (pPlayer->FInViewCone(EyePosition()))
-				return false;
-		}
+		CBasePlayer *pLocalPlayer = AI_GetSinglePlayer();
+		if ( pLocalPlayer->FInViewCone( EyePosition() ) )
+			return false;
 
 		return true;
 	}

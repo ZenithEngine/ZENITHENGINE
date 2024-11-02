@@ -1830,7 +1830,7 @@ void CGameMovement::Accelerate( Vector& wishdir, float wishspeed, float accel )
 		return;
 
 	// See if we are changing direction a bit
-	currentspeed = sqrt(DotProduct(mv->m_vecVelocity, mv->m_vecVelocity));
+	currentspeed = mv->m_vecVelocity.Dot(wishdir);
 
 	// Reduce wishspeed by the amount of veer.
 	addspeed = wishspeed - currentspeed;

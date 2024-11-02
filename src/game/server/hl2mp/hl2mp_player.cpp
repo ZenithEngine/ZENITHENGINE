@@ -616,7 +616,7 @@ void CHL2MP_Player::NoteWeaponFired( void )
 
 extern ConVar sv_maxunlag;
 
-bool CHL2MP_Player::WantsLagCompensationOnEntity(const CBaseEntity *pEntity, const CUserCmd *pCmd, const CBitVec<MAX_EDICTS> *pEntityTransmitBits) const
+bool CHL2MP_Player::WantsLagCompensationOnEntity( const CBasePlayer *pPlayer, const CUserCmd *pCmd, const CBitVec<MAX_EDICTS> *pEntityTransmitBits ) const
 {
 	// No need to lag compensate at all if we're not attacking in this command and
 	// we haven't attacked recently.
@@ -624,22 +624,15 @@ bool CHL2MP_Player::WantsLagCompensationOnEntity(const CBaseEntity *pEntity, con
 		return false;
 
 	// If this entity hasn't been transmitted to us and acked, then don't bother lag compensating it.
-	if (pEntityTransmitBits && !pEntityTransmitBits->Get(pEntity->entindex())) 
+	if ( pEntityTransmitBits && !pEntityTransmitBits->Get( pPlayer->entindex() ) )
 		return false;
 
 	const Vector &vMyOrigin = GetAbsOrigin();
-	const Vector &vHisOrigin = pEntity->GetAbsOrigin();
+	const Vector &vHisOrigin = pPlayer->GetAbsOrigin();
 
 	// get max distance player could have moved within max lag compensation time, 
 	// multiply by 1.5 to to avoid "dead zones"  (sqrt(2) would be the exact value)
-	float maxspeed;
-	CBasePlayer *pPlayer = ToBasePlayer((CBaseEntity*)pEntity);
-	if (pPlayer)
-		maxspeed = pPlayer->MaxSpeed();
-	else
-		maxspeed = 600;
-	float maxDistance = 1.5 * maxspeed * sv_maxunlag.GetFloat();
-
+	float maxDistance = 1.5 * pPlayer->MaxSpeed() * sv_maxunlag.GetFloat();
 
 	// If the player is within this distance, lag compensate them in case they're running past us.
 	if ( vHisOrigin.DistTo( vMyOrigin ) < maxDistance )

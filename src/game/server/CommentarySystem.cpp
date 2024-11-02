@@ -220,12 +220,23 @@ public:
 LINK_ENTITY_TO_CLASS( point_commentary_viewpoint, CCommentaryViewPosition );
 
 //-----------------------------------------------------------------------------
-// Purpose: In multiplayer, always return player 1 
+// Purpose: In multiplayer, always return player 1
 //-----------------------------------------------------------------------------
 CBasePlayer *GetCommentaryPlayer( void )
 {
-	// GetLocalPlayer does this now 
-	return UTIL_GetLocalPlayer();
+	CBasePlayer *pPlayer;
+
+	if ( gpGlobals->maxClients <= 1 )
+	{
+		pPlayer = UTIL_GetLocalPlayer();
+	}
+	else
+	{
+		// only respond to the first player
+		pPlayer = UTIL_PlayerByIndex(1);
+	}
+
+	return pPlayer;
 }
 
 //===========================================================================================================

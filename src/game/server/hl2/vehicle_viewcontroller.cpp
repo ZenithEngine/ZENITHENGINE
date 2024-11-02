@@ -134,7 +134,7 @@ void CPropVehicleViewController::ExitVehicle( int nRole )
 //-----------------------------------------------------------------------------
 void CPropVehicleViewController::InputForcePlayerIn( inputdata_t &inputdata )
 {
-	CBasePlayer *pPlayer = UTIL_GetNearestPlayer(GetAbsOrigin());
+	CBasePlayer *pPlayer = UTIL_PlayerByIndex(1);
 	if ( !pPlayer )
 		return;
 
