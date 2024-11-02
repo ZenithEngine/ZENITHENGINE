@@ -43,7 +43,6 @@ private:
 	string_t m_iszPattern;
 	char	m_iCurrentFade;
 	char	m_iTargetFade;
-	string_t m_iszColor;
 };
 
 #endif // LIGHTS_H

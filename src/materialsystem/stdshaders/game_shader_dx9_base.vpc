@@ -50,6 +50,12 @@ $Project
 	$Folder	"Source Files"
 	{
 		$File	"BaseVSShader.cpp"
+
+		$File	"example_model_dx9.cpp"
+		$File	"example_model_dx9_helper.cpp"
+
+		$File	"Bloom.cpp"
+		$File	"screenspace_general.cpp"
 	}
 
 	$Folder	"Header Files"
@@ -61,6 +67,8 @@ $Project
 		$File	"common_vertexlitgeneric_dx9.h"
 		$File	"common_vs_fxc.h"
 		$File	"shader_constant_register_map.h"
+
+		$File	"example_model_dx9_helper.h"
 	}
 
 	$Folder	"Link Libraries" [$WIN32]
@@ -76,4 +84,7 @@ $Project
 
 	$File	"buildsdkshaders.bat"
 	$File	"buildshaders.bat"
+
+	$Shaders	"stdshader_dx9_20b.txt"
+	$Shaders	"stdshader_dx9_30.txt"
 }

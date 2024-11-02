@@ -19,8 +19,6 @@
 #include "fx_line.h"
 #include "fx_water.h"
 
-#include "deferred/deferred_shared_common.h"
-
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
@@ -174,7 +172,6 @@ void C_BaseExplosionEffect::Create( const Vector &position, float force, float s
 {
 	m_vecOrigin = position;
 	m_fFlags	= flags;
-	m_flScale	= scale;
 
 	//Find the force of the explosion
 	GetForceDirection( m_vecOrigin, force, &m_vecDirection, &m_flForce );
@@ -703,7 +700,7 @@ void C_BaseExplosionEffect::CreateDynamicLight( void )
 	if ( m_fFlags & TE_EXPLFLAG_NODLIGHTS )
 		return;
 
-	/*dlight_t *dl = effects->CL_AllocDlight( 0 );
+	dlight_t *dl = effects->CL_AllocDlight( 0 );
 	
 	VectorCopy (m_vecOrigin, dl->origin);
 	
@@ -712,29 +709,7 @@ void C_BaseExplosionEffect::CreateDynamicLight( void )
 	dl->color.r = 255;
 	dl->color.g = 220;
 	dl->color.b = 128;
-	dl->die		= gpGlobals->curtime + 0.1f;*/
-
-	def_light_temp_t *l = new def_light_temp_t( 0.3f );
-
-	l->ang = vec3_angle;
-	l->pos = m_vecOrigin;
-	l->pos.z += 64.0f;
-
-	l->col_diffuse.Init( 0.964705882f, 0.82745098f, 0.403921569f );
-
-	l->flRadius = m_flScale * 512.f;
-	l->flFalloffPower = 1.0f;
-
-	l->iVisible_Dist = 1024.0f;
-	l->iVisible_Range = 1024.0f;
-	l->iShadow_Dist = 512.0f;
-	l->iShadow_Range = 512.0f;
-
-	l->iFlags >>= DEFLIGHTGLOBAL_FLAGS_MAX_SHARED_BITS;
-	l->iFlags <<= DEFLIGHTGLOBAL_FLAGS_MAX_SHARED_BITS;
-	l->iFlags |= DEFLIGHT_SHADOW_ENABLED;
-
-	GetLightingManager()->AddTempLight( l );
+	dl->die		= gpGlobals->curtime + 0.1f;
 }
 
 //-----------------------------------------------------------------------------
