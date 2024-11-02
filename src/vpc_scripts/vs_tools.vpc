@@ -1,0 +1,6 @@
+// VSTOOLS.VPC
+// Enabling anyone of these will disable support for running the SLN with Visual Studio 2013
+$Conditional VS2015	"0" // Toggles Visual Studio 2015 (v140) toolset
+$Conditional VS2017	"0" // Toggles Visual Studio 2017 (v141) toolset
+$Conditional VS2019	"0" // Toggles Visual Studio 2019 (v142) toolset
+$Conditional VS2022	"0" // Toggles Visual Studio 2022 (v143) toolset
