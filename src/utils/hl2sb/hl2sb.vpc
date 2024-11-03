@@ -92,6 +92,15 @@ $Project "hl2sb"
 		$File	"$SRCDIR\public\tier1\utlvector.h"
 		$File	"$SRCDIR\public\vstdlib\vstdlib.h"
 	}
+	
+	$Folder "Lua 5.1"
+	{
+		$File "$SRCDIR\utils\hl2sb\lua\etc\lua.hpp"
+		$File "$SRCDIR\utils\hl2sb\lua\src\lua.h"
+		$File "$SRCDIR\utils\hl2sb\lua\src\luaxlib.h"
+		$File "$SRCDIR\utils\hl2sb\lua\src\lualib.h"
+		$File "$SRCDIR\utils\hl2sb\lua\src\luaconf.h"
+	}
 
 	$Folder	"Link Libraries"
 	{

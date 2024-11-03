@@ -132,3 +132,9 @@ $Project "vvis_launcher"
 	"utils\vvis_launcher\vvis_launcher.vpc" [$WIN32]
 }
 
+// TODO: 
+// Fix the HL2SB Lua integration
+//$Project "Lua"
+//{
+//	"utils\hl2sb\hl2sb.vpc"	[$WIN32]
+//}
