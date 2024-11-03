@@ -6,7 +6,7 @@
 //=============================================================================//
 #define lbasecombatweapon_shared_cpp
 
-#include "luamanager.h"
+#include "..\utils\hl2sb\lua\etc\lua.hpp"
 #include "lbasecombatweapon_shared.h"
 
 // memdbgon must be the last include file in a .cpp file!!!

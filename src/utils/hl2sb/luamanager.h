@@ -17,7 +17,7 @@
 #pragma once
 #endif
 
-#include "lua.hpp"
+#include "..\utils\hl2sb\lua\etc\lua.hpp"
 
 #define LUA_ROOT                "lua" // Can't be "LUA_PATH" because luaconf.h uses it.
 #define LUA_PATH_ENUM           LUA_ROOT "\\includes\\enum"

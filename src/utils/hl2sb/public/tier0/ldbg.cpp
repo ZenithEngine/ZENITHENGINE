@@ -9,7 +9,7 @@
 
 #include "dbg.h"
 #include "Color.h"
-#include "lua.hpp"
+#include "..\..\luamanager.h"
 #include "lColor.h"
 
 // memdbgon must be the last include file in a .cpp file!!!

@@ -35,7 +35,7 @@ void CSigScan::Init(unsigned char *sig, char *mask, size_t len) {
 	ustrncpy(sig_str, sig, sig_len);
 
 	sig_mask = new char[sig_len+1];
-	strncpy(sig_mask, mask, sig_len);
+	//strncpy(sig_mask, mask, sig_len);
 	sig_mask[sig_len+1] = 0;
 
 	if(!base_addr)

@@ -9,7 +9,7 @@
 #define lrandom_cpp
 
 #include "vstdlib/random.h"
-#include "lua.hpp"
+#include "..\luamanager.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"

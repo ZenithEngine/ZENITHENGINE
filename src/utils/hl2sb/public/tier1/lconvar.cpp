@@ -177,11 +177,11 @@ static int luasrc_ConCommand (lua_State *L) {
     return 1;
   }
 
-  ConCommand *pConCommand = new ConCommand(strdup(pName), CC_ConCommand, strdup(luaL_optstring(L, 2, 0)), luaL_optint(L, 3, 0), NULL);
+  //ConCommand *pConCommand = new ConCommand(strdup(pName), CC_ConCommand, strdup(luaL_optstring(L, 2, 0)), luaL_optint(L, 3, 0), NULL);
 
-  lookup = m_ConCommandDatabase.Insert( pName, pConCommand );
-  Assert( lookup != m_ConCommandDatabase.InvalidIndex() );
-  lua_pushconcommand(L, pConCommand);
+  //lookup = m_ConCommandDatabase.Insert( pName, pConCommand );
+  //Assert( lookup != m_ConCommandDatabase.InvalidIndex() );
+  //lua_pushconcommand(L, pConCommand);
   return 1;
 }
 
@@ -346,11 +346,11 @@ static int luasrc_ConVar (lua_State *L) {
     return 1;
   }
 
-  ConVar *pConVar = new ConVar(strdup(pName), luaL_checkstring(L, 2), luaL_optint(L, 3, 0), strdup(luaL_optstring(L, 4, 0)), luaL_optboolean(L, 5, 0), luaL_optnumber(L, 6, 0.0), luaL_optboolean(L, 7, 0), luaL_optnumber(L, 8, 0));
+  //ConVar *pConVar = new ConVar(strdup(pName), luaL_checkstring(L, 2), luaL_optint(L, 3, 0), strdup(luaL_optstring(L, 4, 0)), luaL_optboolean(L, 5, 0), luaL_optnumber(L, 6, 0.0), luaL_optboolean(L, 7, 0), luaL_optnumber(L, 8, 0));
 
-  lookup = m_ConVarDatabase.Insert( pName, pConVar );
-  Assert( lookup != m_ConVarDatabase.InvalidIndex() );
-  lua_pushconvar(L, pConVar);
+  //lookup = m_ConVarDatabase.Insert( pName, pConVar );
+  //Assert( lookup != m_ConVarDatabase.InvalidIndex() );
+  //lua_pushconvar(L, pConVar);
   return 1;
 }
 

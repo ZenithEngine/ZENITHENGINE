@@ -286,8 +286,8 @@ CON_COMMAND( lua_dostring, "Run a Lua string" )
 		return;
 	}
 
-	int status = luasrc_dostring( L, args.ArgS() );
-	if (status == 0 && lua_gettop(L) > 0) {  /* any result to print? */
+	//int status = luasrc_dostring( L, args.ArgS() );
+	//if (status == 0 && lua_gettop(L) > 0) {  /* any result to print? */
 	  lua_getglobal(L, "print");
 	  lua_insert(L, 1);
 	  if (lua_pcall(L, lua_gettop(L)-1, 0, 0) != 0)
@@ -295,8 +295,8 @@ CON_COMMAND( lua_dostring, "Run a Lua string" )
 						  "error calling " LUA_QL("print") " (%s)",
 						  lua_tostring(L, -1)));
 	}
-	lua_settop(L, 0);  /* clear stack */
-}
+	//lua_settop(L, 0);  /* clear stack */
+//}
 
 static int DoFileCompletion( const char *partial, char commands[ COMMAND_COMPLETION_MAXITEMS ][ COMMAND_COMPLETION_ITEM_LENGTH ] )
 {
@@ -305,11 +305,13 @@ static int DoFileCompletion( const char *partial, char commands[ COMMAND_COMPLET
 	const char *cmdname = "lua_dofile";
 	char *substring = NULL;
 	int substringLen = 0;
+	/*
 	if ( Q_strstr( partial, cmdname ) && strlen(partial) > strlen(cmdname) + 1 )
 	{
 		substring = (char *)partial + strlen( cmdname ) + 1;
 		substringLen = strlen(substring);
 	}
+	*/
 	
 	FileFindHandle_t fh;
 

@@ -11,7 +11,7 @@
 #include "mathlib/vector.h"
 #include "fmtstr.h"
 #include "mathlib/mathlib.h"
-#include "lua.hpp"
+#include "..\luamanager.h"
 #include "lvector.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
@@ -178,7 +178,8 @@ static int Vector_Zero (lua_State *L) {
 static int Vector___index (lua_State *L) {
   Vector *v = luaL_checkvector(L, 1);
   const char *field = luaL_checkstring(L, 2);
-  if (strcmp(field, "x") == 0)
+  /*
+  //if (strcmp(field, "x") == 0)
     lua_pushnumber(L, v->x);
   else if (strcmp(field, "y") == 0)
     lua_pushnumber(L, v->y);
@@ -190,6 +191,7 @@ static int Vector___index (lua_State *L) {
     lua_gettable(L, -2);
   }
   return 1;
+  */
 }
 
 static int Vector___tostring (lua_State *L) {
@@ -333,6 +335,7 @@ static int QAngle_LengthSqr (lua_State *L) {
 static int QAngle___index (lua_State *L) {
   QAngle *v = luaL_checkangle(L, 1);
   const char *field = luaL_checkstring(L, 2);
+  /*
   if (strcmp(field, "x") == 0)
     lua_pushnumber(L, v->x);
   else if (strcmp(field, "y") == 0)
@@ -344,6 +347,7 @@ static int QAngle___index (lua_State *L) {
     lua_pushvalue(L, 2);
     lua_gettable(L, -2);
   }
+  */
   return 1;
 }
 
@@ -392,7 +396,7 @@ static int QAngle___div (lua_State *L) {
   float b = luaL_checknumber(L, 2);
   QAngle c;
   CHECK_VALID(a);
-  Assert( b != 0.0f );
+  //Assert( b != 0.0f );
   vec_t oob = 1.0f / b;
   c.x = a.x * oob;
   c.y = a.y * oob;

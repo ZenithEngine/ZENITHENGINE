@@ -291,6 +291,13 @@ $Project "Server (HL2MP)"
 				$File	"$SRCDIR\game\shared\hl2mp\weapon_smg1.cpp"
 				$File	"$SRCDIR\game\shared\hl2mp\weapon_stunstick.cpp"
 			}
+			
+			$Folder "Zenith"
+			{
+				$Folder "Weapons"
+				{
+					$File "$SRCDIR\game\shared\zenith\weapon_mp5.cpp"
+				}
 		}
 	}
 }
