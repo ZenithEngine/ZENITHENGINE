@@ -7,8 +7,8 @@
                                           |___/              
 ```
 
-The Zenith Engine Project is a project that aims to recreate [XenEngine](https://developer.valvesoftware.com/wiki/XenEngine) by [Crowbar Collective](https://www.crowbarcollective.com/)
-It pre-comes with multiple features which you can find [Here](https://github.com/ZenithEngine)
+The Zenith Engine Project is a project that aims to recreate [XenEngine](https://developer.valvesoftware.com/wiki/XenEngine) by [Crowbar Collective](https://www.crowbarcollective.com/).
+It comes pre-installed with multiple features which you can find [Here](https://github.com/ZenithEngine)
 
 ## Contact us?
 [Join our Discord server](https://discord.gg/zUFpD4WKrW) to contact me the lead developer <@guestsneezeplayz>
