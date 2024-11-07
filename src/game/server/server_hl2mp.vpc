@@ -20,7 +20,7 @@ $Configuration
 	}
 }
 
-$Project "Server (HL2MP)"
+$Project "Server (Zenith)"
 {
 	$Folder	"Source Files"
 	{
@@ -297,6 +297,7 @@ $Project "Server (HL2MP)"
 				$Folder "Weapons"
 				{
 					$File "$SRCDIR\game\shared\zenith\weapon_mp5.cpp"
+					$File "$SRCDIR\game\shared\zenith\weapon_hornetgun.cpp"
 				}
 		}
 	}
