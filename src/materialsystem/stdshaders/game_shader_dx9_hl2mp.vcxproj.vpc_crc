@@ -6,7 +6,7 @@ f7666212 ..\..\materialsystem\stdshaders\game_shader_dx9_base.vpc
 4832e67a ..\..\vpc_scripts\source_dll_base.vpc
 d752cf80 ..\..\vpc_scripts\platform_dirs.vpc
 6c4a5ff1 ..\..\vpc_scripts\source_base.vpc
-c43c8d0e ..\..\vpc_scripts\source_dll_win32_base.vpc
+73df4e62 ..\..\vpc_scripts\source_dll_win32_base.vpc
 486b766d ..\..\vpc_scripts\version.vpc
 846102f0 ..\..\vpc_scripts\loadaddress.vpc
 1355b11f ..\..\vpc_scripts\source_dll_win32_debug.vpc
