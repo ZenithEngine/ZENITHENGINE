@@ -1,0 +1,8 @@
+Zenith Engine uses these projects
+- FakeCSM by celisje567
+- Dynamic RTT Lighting by CSPromod/VDC (Implemented from the VDC guide)
+- Deferred by SCell555/VDC (Implemented from the VDC guide)
+- PBR Shading by thexa4/VDC (Implemented from the VDC guide)
+- Discord RPC by Discord/VDC (Implemented from the VDC guide)
+- First person ragodlls (MP) by VDC (Implemented from the VDC guide)
+- Gameinfo.txt mounting by VDC (Explained in VDC)
