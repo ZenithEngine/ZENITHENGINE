@@ -1,3 +1,6 @@
+> [!NOTE]
+> This project is holding development for a few weeks
+
 ```
  _____          _ _   _       _____             _            
 |__  /___ _ __ (_) |_| |__   | ____|_ __   __ _(_)_ __   ___ 
